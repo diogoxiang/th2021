@@ -1,6 +1,6 @@
 {
   "name": "th2v",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "th2 webFrame work 2021 version",
   "main": "index.js",
   "bin": {
