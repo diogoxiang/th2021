@@ -136,6 +136,10 @@ fis.th = function (options) {
         }).match('/{views,components,modules}/**', {
             //query: '?=t' + Date.now()
         })
+        .match('*.{js,es,es6,jsx,ts,tsx}', {
+            // 允许你在 js 中直接 require 文件。比如图片，json, 其他静态文件。
+            preprocessor: fis.plugin('js-require-file')
+        })
         .match('/components/common/common.js', {
             isLink: true,
             isMod: true,
