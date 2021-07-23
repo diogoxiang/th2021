@@ -2,16 +2,16 @@
 
 ```js
     // 编辑开发 
-    fis3 release -wL
+    th2v release -wL
 
     // 本地编译发布 
-    fis3 release prod
+    th2v release prod
 
     // 本地编译发布 (js css img) 采用 oss / cdn 版本
-    fis3 release prodoss 
+    th2v release prodoss 
 
     // jenkins 编译发布,需配合  package.json  中的scripts 命令一起使用
-    fis3 release jkprod
+    th2v release jkprod
 
 ```
 
@@ -19,9 +19,12 @@
 
 - 出现800A138F的错误 WIN7, WIN10
   找到你放js文件的位置，然后右击鼠标， 选择打开方式，会看到如下图 
+  ![](https://gitee.com/codeour/res/raw/master/img/20210723091338.jpg)  
   改成node.exe 默认打开就可以了
-
   
+  
+
+
 
 
 ### 更新日志
@@ -31,7 +34,7 @@
 - jenkins 构建的支持 
 - 升级部分依赖
 - 升级支持 node 12.x 以上的
-- csssprites 因最高版本只支持到node8 
+- csssprites 因最高版本只支持到node8, 所以此功能 失效
 
 #### 2020-6-11  增加 功能
 
