@@ -14,7 +14,8 @@ var cli = new Liftoff({
     '.js': null
   }
 });
- 
+
+
 cli.launch({
   cwd: argv.r || argv.root,
   configPath: argv.f || argv.file

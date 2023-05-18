@@ -11,6 +11,15 @@
     th2v release prodoss 
 
     // jenkins 编译发布,需配合  package.json  中的scripts 命令一起使用
+    //  package.json
+      //  "scripts": {
+      //     "test": "echo \"Error: no test specified\" && exit 1",
+      //     "build": "th2v release jkprod"
+      //  }
+    // ---
+    //  fis-conf.js 
+    //      jenkins打包目录 要用相对路径  "./dist" 默认是用这个
+    //      jenkinsPath: "./dist"
     th2v release jkprod
 
 ```

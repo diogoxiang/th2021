@@ -5,16 +5,64 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch via NPM",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "debug"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "args": [
+                "task"
+            ],
+            "name": "Gulp task",
+            "program": "${workspaceFolder}/node_modules/gulp/bin/gulp.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "type": "node",
             "request": "launch",
-            "name": "dev",
+            "name": "jkprod",
             "program": "${workspaceRoot}\\bin\\th2v.js",
             "cwd": "${workspaceRoot}\\demo",
             "args": [
-                "-v"
+                "release",
+                "jkprod"
             ],
         },
-         {
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "prodoss",
+            "program": "${workspaceRoot}\\bin\\th2v.js",
+            "cwd": "${workspaceRoot}\\demo",
+            "args": [
+                "release",
+                "prodoss"
+            ],
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "dev",
+            "cwd": "F:/GitHub/th2021/demo",
+            "program": "${workspaceRoot}\\bin\\th2v.js",
+            "args": [
+                "release",
+                "-wL",
+            ],
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Watch",

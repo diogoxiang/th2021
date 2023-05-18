@@ -4,7 +4,8 @@
   "description": "跳转页面\r 公众授权页面",
   "main": ".eslintrc.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "th2v release jkprod"
   },
   "author": "",
   "license": "ISC"

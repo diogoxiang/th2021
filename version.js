@@ -25,4 +25,6 @@ module.exports = function(){
     ''
   ].join('\n');
   console.log(content);
+  
+  console.log(__dirname);
 };
