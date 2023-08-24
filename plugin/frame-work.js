@@ -11,6 +11,7 @@ module.exports = function (ret, conf, settings, opt) {
     map.alias = {};
     map.deps = {};
     //makeAlias(ret.src['/package.json'], map, ret);
+   
 
     function relative(url) {
         if (url) {

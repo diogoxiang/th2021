@@ -1,6 +1,6 @@
 {
   "name": "th2v",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "th2v webFrame work 2021 version",
   "main": "index.js",
   "bin": {
@@ -8,6 +8,7 @@
   },
   "files": [
     "package.json",
+    "demo/*",
     "bin/",
     "plugin/",
     "index.js",
@@ -52,6 +53,7 @@
     "fis3-parser-typescript": "^1.5.0",
     "fis3-postpackager-loader": "^2.1.12",
     "fis3-preprocessor-js-require-file": "^0.1.3",
+    "fis-optimizer-js-obfuscator": "^0.1.2",
     "fis3-server-node": "^0.1.3",
     "html-minifier": "^4.0.0",
     "liftoff": "^3.1.0",
@@ -65,5 +67,8 @@
   ],
   "engines": {
     "node": ">=12.0"
+  },
+  "devDependencies": {
+   
   }
 }

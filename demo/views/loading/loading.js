@@ -16,7 +16,8 @@ require(['vue', 'common', 'extend', 'apiData', 'dialog'], function (Vue, app, ex
             //通过下面这个API显示右上角按钮
             WeixinJSBridge.call('showOptionMenu');
         });
-        document.body.innerHTML = "debugger模式 , 复制 URL(删除o=1参数) 到模拟器上打开,可进行模拟器调式"
+
+        document.body.innerHTML = "debugger模式 , 复制 URL(删除o=1参数) 到模拟器上打开,可进行111模拟器调式"
         return false
     }
 
