@@ -313,9 +313,11 @@ fis.th = function (options) {
       isProd: true,
     })
     .match("**", {
-      deploy: plugin("local-deliver", {
-        to: OPTIONS.prodPloay || OPTIONS.deploy,
-      }),
+      deploy: [
+        plugin("local-deliver", {
+          to: OPTIONS.prodPloay || OPTIONS.deploy,
+        })
+      ],
     });
 
   // ---oss版

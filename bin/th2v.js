@@ -2,7 +2,7 @@
 
 var Liftoff = require('liftoff');
 var argv = require('minimist')(process.argv.slice(2));
-var name="th2v";
+var name = "th2v";
 var path = require('path');
 var cli = new Liftoff({
   name: name, // 命令名字
@@ -19,7 +19,7 @@ var cli = new Liftoff({
 cli.launch({
   cwd: argv.r || argv.root,
   configPath: argv.f || argv.file
-}, function(env) {
+}, function (env) {
   var fis;
   if (!env.modulePath) {
     fis = require('..');
@@ -34,8 +34,9 @@ cli.launch({
   if (argv._[0] === 'init') {
     let tempFiles = path.dirname(__dirname) + "\\demo";
     fis.util.copy(tempFiles, env.cwd);
+    // console.log(argv)
     console.log("init success");
-    return 
+    return
   }
 
   // 配置插件查找路径，优先查找本地项目里面的 node_modules
@@ -43,6 +44,7 @@ cli.launch({
   //fis.require.paths.unshift(path.join(env.cwd, 'node_modules',name));
   fis.require.paths.unshift(path.join(path.dirname(__dirname), 'node_modules'));
   fis.require.paths.push(path.join(path.dirname(__dirname), 'node_modules'));
+  
 
   fis.cli.run(argv, env);
 });

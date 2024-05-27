@@ -21,7 +21,7 @@ fis.th({
     },
     base: ['views/setfont.js', 'lib/scrat/scrat.js', 'lib/diocss/dio.min.css'], // 所有页面都会加载的资源，可以是js，css
     domain: '', // 配置共有静态资源域名
-    ossDomain: "https://xxc-oss.taiheiot.com/v20181015/", // OSS目录引用域名 可为空
+    ossDomain: "https://xxc-oss.taiheiot.com/", // OSS目录引用域名 可为空
     version: '', // 版本号,可选
     deploy: "F:\\taihe_iot\\sichuan",
     // deploy: 'F:\\diogo\\github.com\\th2_2018\\dist', // 发布测试路径

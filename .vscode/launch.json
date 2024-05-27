@@ -38,7 +38,7 @@
             "cwd": "${workspaceRoot}\\demo",
             "args": [
                 "release",
-                "jkprod"
+                "jkprod",
             ],
         },
         {
@@ -56,7 +56,7 @@
             "type": "node",
             "request": "launch",
             "name": "dev",
-            "cwd": "F:/GitHub/th2021/demo",
+            "cwd": "${workspaceRoot}\\demo",
             "program": "${workspaceRoot}\\bin\\th2v.js",
             "args": [
                 "release",
@@ -66,12 +66,12 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Watch",
+            "name": "Build Prod",
             "program": "${workspaceRoot}\\bin\\th2v.js",
             "cwd": "${workspaceRoot}\\demo",
             "args": [
                 "release",
-                "-wL"
+                "prod"
             ],
         },
         {

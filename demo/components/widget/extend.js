@@ -581,4 +581,5 @@ var extend = {
   }
 
 };
+
 module.exports = extend;
