@@ -71,7 +71,7 @@
             "cwd": "${workspaceRoot}\\demo",
             "args": [
                 "release",
-                "prod"
+                "jkprod|v292405"
             ],
         },
         {

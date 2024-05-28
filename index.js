@@ -7,8 +7,20 @@ fis.cli.name = "th2v";
 fis.cli.info = require("./package.json");
 fis.cli.version = require("./version.js");
 
-var frameWork = require("./plugin/frame-work.js");
+//-动态 输入主要 是配合 jenkins 来做这个处理-
+var argv = require('minimist')(process.argv.slice(2));
+var Method, buildVersion, buildProject;
+if (argv._[1]) {
+  Method = argv._[1].split('|')[0];
+  buildVersion = argv._[1].split('|')[1];
+  buildProject = argv._[1].split('|')[2] ? argv._[1].split('|')[2]+"/":'';
+  if (!buildVersion) {
+    buildVersion = "v" + Date.now()
+  }
+}
+//--
 
+var frameWork = require("./plugin/frame-work.js");
 var plugins = {};
 var plugin = function (name, options) {
   var localPlugin = plugins[name];
@@ -101,6 +113,7 @@ function replacer(opt) {
   return r;
 }
 
+
 // Cli 配置
 fis.th = function (options) {
   // 配置
@@ -117,7 +130,16 @@ fis.th = function (options) {
     },
     options
   );
-
+  // 启动运行
+  // console.log(argv._)
+  console.log(Method)
+  console.log(buildVersion)
+  // 设置 media
+  fis.project.currentMedia(Method)
+  if(Method == 'jkprod'){ 
+    OPTIONS.ossDomain = OPTIONS.ossDomain + buildProject  + buildVersion + "/"
+  }
+  // ----
   var _u = "",
     _ary = Array.of(OPTIONS.name, OPTIONS.version);
   _ary.forEach((str) => str && (_u += "/" + str));
