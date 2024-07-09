@@ -37,7 +37,7 @@
 
 #### 2024-5-28 
 
-- th2v release jkprod|v20240528|gansu-shop
+- th2v release jkprod|v20240528|gansu
   -支持 版本, 项目路径
 
 #### 2021-7-22 增加 

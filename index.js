@@ -13,14 +13,14 @@ var Method, buildVersion, buildProject;
 if (argv._[1]) {
   Method = argv._[1].split('|')[0];
   buildVersion = argv._[1].split('|')[1];
-  buildProject = argv._[1].split('|')[2] ? argv._[1].split('|')[2]+"/":'';
+  buildProject = argv._[1].split('|')[2] ? argv._[1].split('|')[2] + "/" : '';
   if (!buildVersion) {
     buildVersion = "v" + Date.now()
   }
 }
 //--
 
-var frameWork = require("./plugin/frame-work.js");
+var FrameWork = require("./plugin/frame-work.js");
 var plugins = {};
 var plugin = function (name, options) {
   var localPlugin = plugins[name];
@@ -124,6 +124,7 @@ fis.th = function (options) {
     urlPattern: "", // 静态资源加载路径模式
     urlPrefix: "", // 静态资源加载路径模式
   };
+
   var OPTIONS = fis.util.merge(
     {
       framework: framework,
@@ -134,15 +135,31 @@ fis.th = function (options) {
   // console.log(argv._)
   console.log(Method)
   console.log(buildVersion)
+
+  // 这里生成一个Txt, 用于记录版本号, 方便Jenkins 构建 及处理
+  var txtInfo = `VERSION=${buildVersion}`
+  fis.util.write(fis.project.getProjectPath() + "/info.txt", txtInfo, 'utf-8')
+  //--
+
+
+  // console.log(fis.info)
   // 设置 media
   fis.project.currentMedia(Method)
-  if(Method == 'jkprod'){ 
-    OPTIONS.ossDomain = OPTIONS.ossDomain + buildProject  + buildVersion + "/"
+  if (Method == 'jkprod') {
+    // 清除缓存
+    fis.cache.clean('compile');
+    if (!buildProject) {
+      buildProject = OPTIONS.name + "/" 
+    }
+    OPTIONS.ossDomain = OPTIONS.ossDomain + buildProject + buildVersion + "/"
   }
   // ----
   var _u = "",
     _ary = Array.of(OPTIONS.name, OPTIONS.version);
   _ary.forEach((str) => str && (_u += "/" + str));
+  //---
+
+
 
   fis.set("frame", {
     framework: framework,
@@ -183,7 +200,7 @@ fis.th = function (options) {
         styleReg:
           /(<style(?:(?=\s)[\s\S]*?["'\s\w\/\-]>|>))([\s\S]*?)(<\/style\s*>|$)/gi,
       }),
-      postpackager: frameWork,
+      postpackager: FrameWork,
     })
     .match("/{views,components,modules}/**", {
       //query: '?=t' + Date.now()
@@ -434,9 +451,6 @@ fis.th = function (options) {
       isProd: true,
     })
     .match("**", {
-      // deploy: plugin('local-deliver', {
-      //     to: OPTIONS.prodPloay || OPTIONS.prodOss
-      // })
       // 增加OSS Domain Cdn前辍
       deploy: replacer([
         {
@@ -448,9 +462,13 @@ fis.th = function (options) {
           to: "/lib/",
         },
       ]).concat(
+        // 特殊处理
         fis.plugin("local-deliver", {
-          to: OPTIONS.jenkinsPath || OPTIONS.deploy,
-        })
+          to: "./dist",
+        }),
+
+
+
       ),
     });
 };

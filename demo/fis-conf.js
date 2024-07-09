@@ -1,5 +1,5 @@
 fis.th({
-    name: '2021Dome', // 项目名，可选
+    name: 'demo', // 项目名，可选
     paths: { // 配置第三方组件
         $: 'lib/zepto/zepto.1.2.0.min.js',
         vue: 'lib/vue/vue.2.13.min.js',

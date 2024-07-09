@@ -1,0 +1,112 @@
+pipeline {
+    agent any
+    tools {
+        // 这里用的是 已经在Jenkins 中已经安装的node 的别名
+        // 注意去 "系统管理" => "全局工具配置" => "NodeJs安装查看
+        nodejs "Node_v13.14"
+    }
+    environment {
+        // 定义全局变量
+        // GLOBAL_VARIABLE = 'value1'
+        SVN_PATH = 'svn://192.168.0.10/tobacco/甘肃中烟市场支持/源代码/trunk/WEB_Front/cloud2_gansu/cloud2_online/gansu/'
+    }
+    stages {
+        stage('Check for package.json changes') {
+            steps {
+                 script {
+                    // 检查npm install是否之前已经执行过，并成功创建了标志文件
+                    def npmInstallExecuted = fileExists("${params.PROJECT}/npm-install-executed.flag")
+                    // 如果package.json没有变化且npm install之前已经执行过，则设置环境变量来跳过安装
+                    // env.SKIP_INSTALL = packageJsonChanged && npmInstallExecuted
+                    env.SKIP_INSTALL = npmInstallExecuted
+
+                    sh "echo ${env.SKIP_INSTALL}"
+                }
+            }
+        }
+        stage('Install dependencies') {
+            when {
+                // 只有当环境变量SKIP_INSTALL为true时跳过此阶段
+                expression { return env.SKIP_INSTALL != "true" }
+            }
+            steps {
+                // 设置npm镜像为国内镜像
+                sh """
+                    cd ${params.PROJECT}
+                    npm config set registry=http://registry.npmmirror.com
+                    npm install
+                """
+                // sh 'npm config set registry=http://registry.npmmirror.com'
+                // 执行npm install命令
+                // sh 'npm install'
+                echo 'Install dependencies...'
+                // npm install执行成功后，创建一个标志文件
+                writeFile file: "${params.PROJECT}/npm-install-executed.flag", text: 'npm install has been executed.'
+            }
+        }
+        stage('Build') {
+            steps {
+                // 获取的配置变量
+                // 使用特定的Node.js环境
+                echo 'Build...'
+                // sh 'npm run build:oms'
+                sh """
+                    node -v
+                    th2v -v
+                    cd ${params.PROJECT}
+                    rm -rf svnbuild
+                    rm -rf dist
+                    npm run jkprod 
+                """
+            }
+        }
+        stage('Test') {
+            steps {
+                // 执行测试命令
+                // sh 'mvn test'
+                 echo 'Test...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // 执行部署命令，例如将应用部署到服务器
+                // sh './deploy.sh'
+                echo 'Deploy...' 
+            }
+        }
+    }
+    post {
+        // 定义构建后的操作
+        success {
+            echo 'Build and deployment successful!'
+            withCredentials([usernamePassword(credentialsId: '2d7443e0-54b8-4bbd-b862-cbfba04fc1f3', passwordVariable: 'SVN_PASSWORD', usernameVariable: 'SVN_USERNAME')]) {
+            sh """
+                cd ${params.PROJECT}
+                mkdir svnbuild
+                cd  svnbuild
+                {
+                    svn co $SVN_PATH${params.PROJECT} --username $SVN_USERNAME --password $SVN_PASSWORD ./
+                    cp -fr ../dist/${params.PROJECT}/* ./
+                    svn status
+                    svn add --force .
+                    svn commit -m "old project" --username $SVN_USERNAME --password $SVN_PASSWORD
+                    
+                } || {
+                    svn co $SVN_PATH --username $SVN_USERNAME --password $SVN_PASSWORD ./
+                    rm -rf ${params.PROJECT}
+                    cp -fr ../dist/* ./
+                    svn add ${params.PROJECT}
+                    svn commit -m "new project" --username $SVN_USERNAME --password $SVN_PASSWORD
+                }
+            """
+            }
+        }
+        failure {
+            echo 'There was an error in the build or deployment process.'
+            
+        }
+    }
+}
+
+
+
