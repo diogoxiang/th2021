@@ -151,7 +151,7 @@ fis.th = function (options) {
     if (!buildProject) {
       buildProject = OPTIONS.name + "/" 
     }
-    OPTIONS.ossDomain = OPTIONS.ossDomain + buildProject + buildVersion + "/"
+    OPTIONS.ossDomain = OPTIONS.JenkinsOssDomain + buildProject + buildVersion + "/"
   }
   // ----
   var _u = "",
