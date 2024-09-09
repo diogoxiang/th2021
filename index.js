@@ -153,11 +153,13 @@ fis.th = function (options) {
     }
     OPTIONS.ossDomain = OPTIONS.JenkinsOssDomain + buildProject + buildVersion + "/"
   }
+
   // ----
   var _u = "",
     _ary = Array.of(OPTIONS.name, OPTIONS.version);
   _ary.forEach((str) => str && (_u += "/" + str));
   //---
+  console.log(_ary)
 
 
 

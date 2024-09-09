@@ -21,11 +21,13 @@ fis.th({
     },
     base: ['views/setfont.js', 'lib/scrat/scrat.js', 'lib/diocss/dio.min.css'], // 所有页面都会加载的资源，可以是js，css
     domain: '', // 配置共有静态资源域名
-    ossDomain: "https://xxc-oss.taiheiot.com/", // OSS目录引用域名 可为空
-    version: '', // 版本号,可选
+    ossDomain: "", // OSS目录引用域名 可为空
+    version: 'v1.2', // 版本号,可选
     deploy: "F:\\taihe_iot\\sichuan",
     // deploy: 'F:\\diogo\\github.com\\th2_2018\\dist', // 发布测试路径
     prodPloay: "F:\\taihe_iot\\sichuan\\distprod",
+    // jenkins打包OSS域名
+    JenkinsOssDomain:"https://gszy.taiheiot.com/gansu_oss/",
     // jenkins打包目录 要用相对路径  "./dist" 默认是用这个
     jenkinsPath: "./dist"
     // prodPloay: 'F:\\Diogo\\tobaccoSvn\\201706_外_安徽中烟项目\\源代码\\trunk\\WEB_Front\\online' // 发布到生产路径
